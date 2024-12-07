@@ -88,7 +88,7 @@ def run_showui(image, query):
     global model
 
     model = model.to("cuda")
-    
+
     text = processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
     image_inputs, video_inputs = process_vision_info(messages)
     inputs = processor(
@@ -138,7 +138,7 @@ def handle_vote(vote_type, image_path, query, action_generated):
     return record_vote(vote_type, image_path, query, action_generated)
 
 # Load logo and encode to Base64
-with open("./assets/showui.png", "rb") as image_file:
+with open("./assets/showui.jpg", "rb") as image_file:
     base64_image = base64.b64encode(image_file.read()).decode("utf-8")
 
 
@@ -156,10 +156,10 @@ def build_demo(embed_mode, concurrency_count=1):
                     <div style="display: flex; justify-content: center;">
                         <img src="data:image/png;base64,{base64_image}" alt="ShowUI" width="320" style="margin-bottom: 10px;"/>
                     </div>
-            
+
                     <!-- Description -->
                     <p>ShowUI is a lightweight vision-language-action model for GUI agents.</p>
-            
+
                     <!-- Links -->
                     <div style="display: flex; justify-content: center; gap: 15px; font-size: 20px;">
                         <a href="https://huggingface.co/showlab/ShowUI-2B" target="_blank">
@@ -228,7 +228,7 @@ def build_demo(embed_mode, concurrency_count=1):
                 """Handle the submit button click."""
                 if image is None:
                     raise ValueError("No image provided. Please upload an image before submitting.")
-                
+
                 # Generate consistent image path and store it in the state
                 image_path = array_to_image_path(image)
                 return run_showui(image, query) + (image_path,)
@@ -289,4 +289,5 @@ if __name__ == "__main__":
         server_port=7860,
         ssr_mode=False,
         debug=True,
+        share=False,
     )
