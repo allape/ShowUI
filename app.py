@@ -31,6 +31,9 @@ files = list_repo_files(repo_id=model_repo)
 
 # Download each file to the destination folder
 for file in files:
+    if os.path.exists(os.path.join(destination_folder, file)):
+        print(f"File {file} already exists in the destination folder.")
+        continue
     file_path = hf_hub_download(repo_id=model_repo, filename=file, local_dir=destination_folder)
     print(f"Downloaded {file} to {file_path}")
 

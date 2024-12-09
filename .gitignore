@@ -2,4 +2,6 @@
 .vscode
 
 showui-*
+
+image_*.png
 .DS_Store
